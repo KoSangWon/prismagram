@@ -4,11 +4,15 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider } from "styled-components";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
 import { ApolloClient, ApolloProvider } from "@apollo/client"
 
 import { Clipboard } from 'react-native'
+import options from './apollo';
+import styles from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 if (__DEV__) {
   Clipboard.setString('')
@@ -17,6 +21,7 @@ if (__DEV__) {
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const preLoad = async () => {
     try {
@@ -31,8 +36,16 @@ export default function App() {
       });
       const client = new ApolloClient({
         cache,
-        ...apolloClientOptions
+        ...options
       })
+
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+      if (isLoggedIn === null || isLoggedIn === "false") {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+      }
+
       setLoaded(true);
       setClient(client);
     } catch (e) {
@@ -42,13 +55,42 @@ export default function App() {
 
   useEffect(() => {
     preLoad();
-  }, [])
+  }, []);
 
-  return loaded && client ? (
+  const logUserIn = async () => {
+    try {
+      await AsyncStorage.setItem("isLoggedIn", "true");
+      setIsLoggedIn(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const logUserOut = async () => {
+    try {
+      await AsyncStorage.setItem("isLoggedIn", "false");
+      setIsLoggedIn(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+  return loaded && client && isLoggedIn !== null ? (
     <ApolloProvider client={client}>
-      <View>
-        <Text>ihiihihi</Text>
-      </View>
+      <ThemeProvider theme={styles}>
+        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+          {isLoggedIn === true ? (
+            <TouchableOpacity onPress={logUserOut}>
+              <Text>Log Out</Text>
+            </TouchableOpacity>
+          ) : (
+              <TouchableOpacity onPress={logUserIn}>
+                <Text>Log In</Text>
+              </TouchableOpacity>
+            )}
+        </View>
+      </ThemeProvider>
     </ApolloProvider>
   ) : (
       <AppLoading />
