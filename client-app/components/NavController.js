@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useIsLoggedIn, useLogIn, useLogOut } from "../AuthContext";
 import AuthNavigation from "../navigation/AuthNavigation";
-import TabNavigation from "../navigation/TabNavigation";
+import MainNavigation from "../navigation/MainNavigation";
 
 export default () => {
   const isLoggedIn = useIsLoggedIn();
@@ -16,7 +16,7 @@ const isLoggedIn2 = "true"
     <NavigationContainer>
       <View style={{ flex: 1 }}>
         {isLoggedIn2 ? (
-          <TabNavigation/>
+          <MainNavigation/>
         ) : (
           <AuthNavigation />
         )}
