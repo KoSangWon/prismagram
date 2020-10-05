@@ -8,11 +8,11 @@ const Stack = createStackNavigator();
 
 const ProfileStackFactory = () => (
   <Stack.Navigator
-    // initialRouteName={'Profile'}
-    // screenOptions={{headerTitle: 'Profile', headerStyle: {...stackStyles}}}
+    initialRouteName={'Profile'}
+    screenOptions={{headerTitle: 'Profile', headerStyle: {...stackStyles}}}
     >
     <Stack.Screen name="Profile" component={Profile} />
-    {/* <Stack.Screen name="Detail" component={Detail} /> */}
+    <Stack.Screen name="Detail" component={Detail} />
   </Stack.Navigator>
 );
 

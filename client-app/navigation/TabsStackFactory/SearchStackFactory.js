@@ -13,11 +13,11 @@ const SearchStackFactory = () => (
   <Stack.Navigator
     initialRouteName={'Search'}
     screenOptions={{
-    //   headerStyle: {...stackStyles},
-    //   headerBackTitle: ' ',
+      headerStyle: {...stackStyles},
+      headerBackTitle: ' ',
     }}>
     <Stack.Screen name="Search" component={Search} />
-    {/* <Stack.Screen
+    <Stack.Screen
       name="Detail"
       component={Detail}
       options={{headerTintColor: styles.black, headerTitle: 'Post'}}
@@ -26,7 +26,7 @@ const SearchStackFactory = () => (
       name="UserDetail"
       component={UserDetail}
       options={userDetailOption}
-    /> */}
+    />
   </Stack.Navigator>
 );
 
