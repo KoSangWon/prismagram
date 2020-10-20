@@ -17,7 +17,7 @@ const HomeStackFactory = ({navigation}) => (
     initialRouteName={'Home'}
     screenOptions={{
       headerTitle: 'Home',
-      headerStyle: {...stackStyles},
+    //   headerStyle: {...stackStyles},
     }}>
     <Stack.Screen
       name="Home"
@@ -28,11 +28,11 @@ const HomeStackFactory = ({navigation}) => (
       }}
     />
     <Stack.Screen name="Detail" component={Detail} />
-    <Stack.Screen
+    {/* <Stack.Screen
       name="UserDetail"
       component={UserDetail}
       options={userDetailOption}
-    />
+    /> */}
   </Stack.Navigator>
 );
 

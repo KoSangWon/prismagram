@@ -11,10 +11,10 @@ const NotiStackFactory = () => (
     initialRouteName={'Notifications'}
     screenOptions={{
       headerTitle: 'Notifications',
-      headerStyle: {...stackStyles},
+    //   headerStyle: {...stackStyles},
     }}>
     <Stack.Screen name="Notifications" component={Notifications} />
-    <Stack.Screen name="Detail" component={Detail} />
+    {/* <Stack.Screen name="Detail" component={Detail} /> */}
   </Stack.Navigator>
 );
 
