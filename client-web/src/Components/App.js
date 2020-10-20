@@ -7,8 +7,8 @@ import AppRouter from "./Router";
 export default () => (
   <ThemeProvider theme={Theme}>
     <>
-    <GlobalStyles />
-    <AppRouter isLoggedIn={false}/>
+      <GlobalStyles />
+      <AppRouter isLoggedIn={false} />
     </>
   </ThemeProvider>
 );
