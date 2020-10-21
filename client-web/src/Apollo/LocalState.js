@@ -1,22 +1,21 @@
-export const defaults = {
-    isLoggedIn: localStorage.getItem("token") !== null ? true : false
-}
-
 export const resolvers = {
-    Mutation: {
-        logUserIn: (_, {token}, {cache}) => {
-            localStorage.setItem("token", token);
-            cache.writeData({
-                data: {
-                    isLoggedIn: true
-                }
-            });
-            return null;
+  Query: {
+    isLoggedIn: () => Boolean(localStorage.getItem("token")) || false, // Boolean(null)은 false
+  },
+  Mutation: {
+    logUserIn: (_, { token }, { cache }) => {
+      localStorage.setItem("token", token);
+      cache.writeData({
+        data: {
+          isLoggedIn: true,
         },
-        logUserOut: (_, __, {cache}) => {
-            localStorage.removeItem("token");
-            window.location.reload();//모든 cache를 없앰
-            return null;
-        }
-    }
-}
+      });
+      return null;
+    },
+    logUserOut: (_, __, { cache }) => {
+      localStorage.removeItem("token");
+      window.location.reload(); //모든 cache를 없앰
+      return null;
+    },
+  },
+};
