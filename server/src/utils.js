@@ -1,6 +1,7 @@
 import { adjectives, nouns } from "./words";
 import nodemailer from "nodemailer";
-import sgTransport from "nodemailer-sendgrid-transport";
+// import sgTransport from "nodemailer-sendgrid-transport";
+import mg from "nodemailer-mailgun-transport"
 
 import jwt from "jsonwebtoken";
 
@@ -9,24 +10,24 @@ export const generateSecret = () => {
     return `${adjectives[randomNumber]} ${nouns[randomNumber]}`
 };
 
-// console.log(process.env.SENDGRID_USERNAME,process.env.SENDGRID_PASSWORD)
-
 export const sendMail = (email) => {
-    const options = {
+    const auth = {
         auth: {
-            api_user: process.env.SENDGRID_USERNAME,
-            api_key: process.env.SENDGRID_PASSWORD
+            api_key: process.env.MAILGUN_API_KEY,
+            domain: process.env.MAILGUN_DOMAIN
         }
     }
 
-    const client = nodemailer.createTransport(sgTransport(options));
-    return client.sendMail(email);
+    const client = nodemailer.createTransport(mg(auth));
+    return client.sendMail(email, (err, info) => console.log('err==>',err, 'info==>',info));
 };
 
 export const sendSecretMail = (address, secret) => {
+    console.log('sendSecretMail OK');
+    console.log("address->",address,'secret=>',secret)
     const email = {
         from: "sangwon@prismagram.com",
-        to: address,
+        to: "jackoss@naver.com",
         subject: "Login Secret for prismagram🐤",
         html: `Hello! Your login secret is <b>${secret}</b>.<br/>Copy paste on the app/website to log in`
     }
