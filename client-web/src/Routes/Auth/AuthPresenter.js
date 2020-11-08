@@ -15,13 +15,12 @@ const Box = styled.div`
   ${(props) => props.theme.whiteBox};
   border-radius: 0px;
   max-width: 350px;
-  width: 100%
+  width: 100%;
 `;
 
 const StateChanger = styled(Box)`
   text-align: center;
   padding: 20px 0px;
-  
 `;
 
 const Link = styled.span`
@@ -40,8 +39,8 @@ const Form = styled(Box)`
         margin-bottom: 10px;
       }
     }
-    button{
-        margin-top: 10px;
+    button {
+      margin-top: 10px;
     }
   }
 `;
@@ -52,23 +51,31 @@ export default ({
   firstName,
   lastName,
   email,
+  secret,
   setAction,
-  onSubmit
+  onSubmit,
 }) => (
   <Wrapper>
     <Form>
-      {action === "logIn" ? (
+      {action === "logIn" && (
         <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
           <Button text={"Log in"} />
         </form>
-      ) : (
+      )}
+      {action === "signUp" && (
         <form onSubmit={onSubmit}>
           <Input placeholder={"First name"} {...firstName} />
           <Input placeholder={"Last name"} {...lastName} />
           <Input placeholder={"Email"} {...email} type="email" />
           <Input placeholder={"Username"} {...username} />
           <Button text={"Sign up"} />
+        </form>
+      )}
+      {action === "confirm" && (
+        <form onSubmit={onSubmit}>
+          <Input placeholder="Paste your secret" required {...secret} />
+          <Button text={"Confirm"} />
         </form>
       )}
     </Form>
