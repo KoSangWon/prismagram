@@ -1,6 +1,5 @@
 import { adjectives, nouns } from "./words";
 import nodemailer from "nodemailer";
-// import sgTransport from "nodemailer-sendgrid-transport";
 import mg from "nodemailer-mailgun-transport"
 
 import jwt from "jsonwebtoken";
