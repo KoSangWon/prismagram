@@ -6,11 +6,11 @@ import { HashRouter as Router } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import GlobalStyles from "../Styles/GlobalStyles";
 import Theme from "../Styles/Theme";
-import AppRouter from "./Router";
+import AppRouter from "./Routes";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const QUERY = gql`
+export const LOGIN_QUERY = gql`
   {
     isLoggedIn @client # 서버까지 가지 않고 동작
   }
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 `;
 
 export default () => {
-  const { data } = useQuery(QUERY);
+  const { data } = useQuery(LOGIN_QUERY);
   // console.log('a', data, loading, error);
   console.log(data?.isLoggedIn);
 
