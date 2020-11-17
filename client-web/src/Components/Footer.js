@@ -5,7 +5,10 @@ const Footer = styled.footer`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-transform: upper
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 50px 0x;
 `;
 
 const List = styled.ul`
