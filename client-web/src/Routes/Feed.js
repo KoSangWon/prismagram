@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import styled from "styled-components";
 import Loader from '../Components/Loader';
+import PostContainer from '../Components/Post';
 
 const FEED_QUERY = gql`
     query {
@@ -41,7 +42,26 @@ const Wrapper = styled.div`
 `;
 
 export default () => {
-    const {error, loading, data} = useQuery(FEED_QUERY);
-    
-return <Wrapper>{loading && <Loader/>}</Wrapper>;
-}
+  const { error, loading, data } = useQuery(FEED_QUERY);
+  console.log(data);
+  return (
+    <Wrapper>
+      {loading && <Loader />}
+      {!loading &&
+        data &&
+        data.seeFeed &&
+        data.seeFeed.map((post) => (
+          <PostContainer
+            key={post.id}
+            id={post.id}
+            user={post.user}
+            files={post.files}
+            likeCount={post.likeCount}
+            isLiked={post.isLiked}
+            comments={post.comments}
+            createdAt={post.createdAt}
+          />
+        ))}
+    </Wrapper>
+  );
+};
