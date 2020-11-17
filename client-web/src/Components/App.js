@@ -32,12 +32,12 @@ export default () => {
       <GlobalStyles />
       <Router>
         <>
-        <Header />
-        <Wrapper>
-          <AppRouter isLoggedIn={data.isLoggedIn} />
-          <Footer />
-          <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
-        </Wrapper>
+          {data.isLoggedIn && <Header />}
+          <Wrapper>
+            <AppRouter isLoggedIn={data.isLoggedIn} />
+            <Footer />
+            <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
+          </Wrapper>
         </>
       </Router>
     </ThemeProvider>
