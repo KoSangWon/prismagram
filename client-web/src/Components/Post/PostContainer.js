@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
@@ -17,8 +17,23 @@ const PostContainer = ({
   // 아래와 같이 useState로 작업하는 이유는 사용자가 보았을 때 DB를 거치지 않고 빠른 속도로 변화한 내용을 확인할 수 있기 때문
   const [isLikedS, setIsLiked] = useState(isLiked); // isLikedState
   const [likeCountS, setLikeCount] = useState(likeCount); // likeCountState
-
+  const [currentItem, setCurrentItem] = useState(0);
   const comment = useInput("");
+
+  const slide = () => {
+    const totalFiles = files.length;
+    if (currentItem === totalFiles - 1) {
+      setTimeout(() => setCurrentItem(0), 3000);
+    } else {
+      setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+    }
+  };
+
+  useEffect(() => {
+    slide();
+  }, [currentItem]);
+
+  console.log(currentItem);
 
   return (
     <PostPresenter
@@ -33,6 +48,7 @@ const PostContainer = ({
       newComment={comment}
       setIsLiked={setIsLiked}
       setLikeCount={setLikeCount}
+      currentItem={currentItem}
     />
   );
 };
